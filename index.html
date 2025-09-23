@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sổ Tay Điện Tử</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6D8BFF;
+            --primary-light: #A0B4FF;
+            --primary-dark: #5A75D9;
+            --secondary: #6BCF7F;
+            --secondary-light: #9CEEA6;
+            --accent: #FFB366;
+            --light: #F7F9FC;
+            --dark: #4A5568;
+            --success: #6BCF7F;
+            --error: #FF6B8B;
+            --border-radius: 12px;
+            --shadow: 0 4px 15px rgba(109, 139, 255, 0.15);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #E6EEFF 0%, #F0F7FF 100%);
+            color: var(--dark);
+            line-height: 1.5;
+            min-height: 100vh;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid var(--primary-light);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .gif-container {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .gif-container img {
+            max-width: 120px;
+            border-radius: 10px;
+        }
+
+        .content {
+            padding: 20px 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1rem;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 2px solid #E6EEFF;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            resize: vertical;
+            transition: var(--transition);
+            background-color: #F7F9FC;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(109, 139, 255, 0.2);
+        }
+
+        .char-count {
+            text-align: right;
+            font-size: 0.9rem;
+            color: var(--dark);
+            margin-top: 5px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            box-shadow: 0 4px 0 var(--primary-dark);
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 var(--primary-dark);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 0 var(--primary-dark);
+        }
+
+        .btn:disabled {
+            background: #D0D0D0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 4px 0 #B0B0B0;
+            color: #A0A0A0;
+        }
+
+        .btn i {
+            font-size: 1.2rem;
+        }
+
+        .status {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-weight: 600;
+            display: none;
+            animation: fadeIn 0.5s ease;
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .success {
+            background: #F0FFF4;
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .error {
+            background: #FFF0F5;
+            color: var(--error);
+            border: 1px solid var(--error);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            color: var(--dark);
+            font-size: 0.8rem;
+            border-top: 1px dashed var(--primary-light);
+            background: #F7F9FC;
+        }
+
+        /* Hiệu ứng cho nút khi có nội dung */
+        .btn-active {
+            animation: pulse 1.5s infinite;
+            background: var(--secondary);
+            box-shadow: 0 4px 0 var(--secondary-light);
+        }
+
+        .btn-active:hover {
+            background: var(--secondary-light);
+            box-shadow: 0 6px 0 var(--secondary);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* Hiệu ứng bong bóng */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            animation: float 15s infinite ease-in-out;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-1000%) rotate(360deg); opacity: 0; }
+        }
+
+        /* Responsive Design cho điện thoại */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+                align-items: flex-start;
+                padding-top: 20px;
+            }
+            
+            .container {
+                max-width: 100%;
+            }
+            
+            .header {
+                padding: 15px 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .content {
+                padding: 15px 10px;
+            }
+            
+            textarea {
+                min-height: 120px;
+                font-size: 16px;
+                padding: 12px;
+            }
+            
+            .btn {
+                padding: 12px 15px;
+                font-size: 1rem;
+            }
+            
+            .gif-container img {
+                max-width: 100px;
+            }
+        }
+
+        @media (max-width: 350px) {
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .header h1 i {
+                font-size: 1.2rem;
+            }
+            
+            textarea {
+                min-height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Bong bóng nền -->
+    <div class="bubble" style="width: 60px; height: 60px; left: 5%; top: 10%;"></div>
+    <div class="bubble" style="width: 40px; height: 40px; left: 80%; top: 20%; animation-delay: -2s;"></div>
+    <div class="bubble" style="width: 70px; height: 70px; left: 40%; top: 5%; animation-delay: -5s;"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-book"></i> Sổ Tay Điện Tử</h1>
+        </div>
+        
+        <div class="content">
+            <div class="gif-container">
+                <img src="https://media.giphy.com/media/3o7aD2d7hy9ktXNDP2/giphy.gif" alt="Ghi chú vui nhộn">
+            </div>
+            
+            <div class="form-group">
+                <label for="textInput">Nội dung ghi chép:</label>
+                <textarea id="textInput" placeholder="Nhập bài học, ghi chú, ý tưởng của bạn..."></textarea>
+                <div class="char-count"><span id="charCount">0</span> ký tự</div>
+            </div>
+            
+            <button id="saveButton" class="btn" disabled>
+                <i class="fas fa-paper-plane"></i> Lưu vào Google Sheets
+            </button>
+            
+            <div id="statusMessage" class="status"></div>
+        </div>
+        
+        <div class="footer">
+            <p>Sổ Tay Điện Tử &copy; 2023</p>
+        </div>
+    </div>
+
+    <script>
+        // Tham chiếu đến các phần tử DOM
+        const textInput = document.getElementById('textInput');
+        const saveButton = document.getElementById('saveButton');
+        const statusMessage = document.getElementById('statusMessage');
+        const charCount = document.getElementById('charCount');
+        
+        // Tạo bong bóng động
+        function createBubbles() {
+            const bubblesContainer = document.body;
+            for (let i = 0; i < 5; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                const size = Math.random() * 40 + 20;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.top = `${Math.random() * 100}%`;
+                bubble.style.animationDelay = `-${Math.random() * 15}s`;
+                bubble.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                bubblesContainer.appendChild(bubble);
+            }
+        }
+        
+        // Theo dõi sự thay đổi của textarea
+        textInput.addEventListener('input', function() {
+            const text = textInput.value.trim();
+            const charLength = textInput.value.length;
+            
+            // Cập nhật số ký tự
+            charCount.textContent = charLength;
+            
+            // Kích hoạt nút nếu có nội dung
+            if (text.length > 0) {
+                saveButton.disabled = false;
+                saveButton.classList.add('btn-active');
+            } else {
+                saveButton.disabled = true;
+                saveButton.classList.remove('btn-active');
+            }
+        });
+        
+        // Xử lý sự kiện khi nhấn nút lưu
+        saveButton.addEventListener('click', saveToGoogleSheets);
+        
+        // Hàm lưu dữ liệu vào Google Sheets với tốc độ nhanh
+        function saveToGoogleSheets() {
+            const text = textInput.value.trim();
+            
+            if (!text) {
+                showStatus('Vui lòng nhập nội dung trước khi lưu!', 'error');
+                return;
+            }
+            
+            // Hiển thị trạng thái đang xử lý
+            saveButton.disabled = true;
+            saveButton.innerHTML = '<i class="fas fa-bolt"></i> Đang lưu...';
+            statusMessage.style.display = 'none';
+            
+            // Tạo đối tượng dữ liệu để gửi
+            const now = new Date();
+            const data = {
+                text: text,
+                timestamp: now.toLocaleString('vi-VN')
+            };
+            
+            // Giả lập việc gửi dữ liệu đến Google Sheets với tốc độ nhanh
+            simulateSaveToSheets(data)
+                .then(result => {
+                    if (result.success) {
+                        showStatus('Đã lưu thành công! 🎉', 'success');
+                        textInput.value = ''; // Xóa nội dung sau khi lưu
+                        charCount.textContent = '0';
+                        
+                        // Hiệu ứng hoàn thành
+                        saveButton.innerHTML = '<i class="fas fa-check"></i> Đã lưu!';
+                        setTimeout(() => {
+                            saveButton.innerHTML = '<i class="fas fa-paper-plane"></i> Lưu vào Google Sheets';
+                        }, 1500);
+                    } else {
+                        throw new Error('Lỗi khi lưu dữ liệu');
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                    showStatus('Lỗi! Vui lòng thử lại.', 'error');
+                })
+                .finally(() => {
+                    saveButton.disabled = false;
+                    
+                    // Kiểm tra lại nội dung textarea để cập nhật trạng thái nút
+                    if (textInput.value.trim().length > 0) {
+                        saveButton.disabled = false;
+                        saveButton.classList.add('btn-active');
+                        saveButton.innerHTML = '<i class="fas fa-paper-plane"></i> Lưu vào Google Sheets';
+                    } else {
+                        saveButton.innerHTML = '<i class="fas fa-paper-plane"></i> Lưu vào Google Sheets';
+                    }
+                });
+        }
+        
+        // Hàm giả lập lưu vào Google Sheets với tốc độ nhanh
+        function simulateSaveToSheets(data) {
+            return new Promise((resolve, reject) => {
+                // Giả lập độ trễ mạng rất ngắn (tốc độ nhanh)
+                setTimeout(() => {
+                    // Giả lập thành công 95% thời gian
+                    if (Math.random() > 0.05) {
+                        resolve({ success: true, data: data });
+                    } else {
+                        reject(new Error('Lỗi kết nối đến Google Sheets'));
+                    }
+                }, 300);
+            });
+        }
+        
+        // Hàm hiển thị thông báo trạng thái
+        function showStatus(message, type) {
+            statusMessage.textContent = message;
+            statusMessage.className = `status ${type}`;
+            statusMessage.style.display = 'block';
+            
+            // Ẩn thông báo sau 3 giây
+            setTimeout(() => {
+                statusMessage.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Thêm hiệu ứng cho container khi load trang
+        window.addEventListener('load', () => {
+            document.querySelector('.container').style.opacity = '0';
+            document.querySelector('.container').style.transform = 'translateY(10px)';
+            
+            setTimeout(() => {
+                document.querySelector('.container').style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                document.querySelector('.container').style.opacity = '1';
+                document.querySelector('.container').style.transform = 'translateY(0)';
+            }, 100);
+            
+            // Tạo bong bóng
+            createBubbles();
+        });
+    </script>
+</body>
+</html>
