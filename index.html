@@ -422,21 +422,21 @@
             }
         });
         
-        // Xử lý sự kiện khi nhấn nút lưu
+        // Xử lý sự kiện khi nhấn nút gửi
         saveButton.addEventListener('click', saveToGoogleSheets);
         
-        // Hàm lưu dữ liệu vào Google Sheets với tốc độ nhanh
+        // Hàm gửi dữ lĐã Gửi với tốc độ nhanh
         function saveToGoogleSheets() {
             const text = textInput.value.trim();
             
             if (!text) {
-                showStatus('Vui lòng nhập nội dung trước khi lưu!', 'error');
+                showStatus('Vui lòng nhập nội dung trước khi gửi!', 'error');
                 return;
             }
             
             // Hiển thị trạng thái đang xử lý
             saveButton.disabled = true;
-            saveButton.innerHTML = '<i class="fas fa-bolt"></i> Đang lưu...';
+            saveButton.innerHTML = '<i class="fas fa-bolt"></i> Đang gửi...';
             statusMessage.style.display = 'none';
             
             // Tạo đối tượng dữ liệu để gửi
@@ -446,22 +446,22 @@
                 timestamp: now.toLocaleString('vi-VN')
             };
             
-            // Giả lập việc gửi dữ liệu đến Google Sheets với tốc độ nhanh
+            // Giả lập việc gửi dữ lĐã Gửi với tốc độ nhanh
             simulateSaveToSheets(data)
                 .then(result => {
                     if (result.success) {
-                        showStatus('Đã lưu thành công! 🎉', 'success');
-                        textInput.value = ''; // Xóa nội dung sau khi lưu
+                        showStatus('Đã gửi thành công! 🎉', 'success');
+                        textInput.value = ''; // Xóa nội dung sau khi gửi
                         charCount.textContent = '0';
                         enterHint.style.display = 'none';
                         
                         // Hiệu ứng hoàn thành
-                        saveButton.innerHTML = '<i class="fas fa-check"></i> Đã lưu!';
+                        saveButton.innerHTML = '<i class="fas fa-check"></i> Đã gửi!';
                         setTimeout(() => {
-                            saveButton.innerHTML = '<i class="fas fa-paper-plane"></i> Lưu vào Google Sheets';
+                            saveButton.innerHTML = '<i class="fas fa-paper-plane"></i> Gửi';
                         }, 1500);
                     } else {
-                        throw new Error('Lỗi khi lưu dữ liệu');
+                        throw new Error('Lỗi khi gửi dữ liệu');
                     }
                 })
                 .catch(error => {
@@ -475,16 +475,16 @@
                     if (textInput.value.trim().length > 0) {
                         saveButton.disabled = false;
                         saveButton.classList.add('btn-active');
-                        saveButton.innerHTML = '<i class="fas fa-paper-plane"></i> Lưu vào Google Sheets';
+                        saveButton.innerHTML = '<i class="fas fa-paper-plane"></i> Đã Gửi';
                         enterHint.style.display = 'block';
                     } else {
-                        saveButton.innerHTML = '<i class="fas fa-paper-plane"></i> Lưu vào Google Sheets';
+                        saveButton.innerHTML = '<i class="fas fa-paper-plane"></i> Đã Gửi';
                         enterHint.style.display = 'none';
                     }
                 });
         }
         
-        // Hàm giả lập lưu vào Google Sheets với tốc độ nhanh
+        // Hàm giả lập Đã Gửi với tốc độ nhanh
         function simulateSaveToSheets(data) {
             return new Promise((resolve, reject) => {
                 // Giả lập độ trễ mạng rất ngắn (tốc độ nhanh)
@@ -493,7 +493,7 @@
                     if (Math.random() > 0.05) {
                         resolve({ success: true, data: data });
                     } else {
-                        reject(new Error('Lỗi kết nối đến Google Sheets'));
+                        reject(new Error('Lỗi kết Đã Gửi'));
                     }
                 }, 300);
             });
