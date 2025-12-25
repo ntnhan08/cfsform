@@ -17,12 +17,14 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 15px;
+            padding: 20px;
             position: relative;
-            overflow: hidden;
+            overflow: auto;
+            margin: 0;
         }
 
         body::before {
@@ -46,12 +48,13 @@
             backdrop-filter: blur(10px);
             border-radius: 25px;
             box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
-            padding: 25px;
+            padding: 30px;
             width: 100%;
-            max-width: 450px;
+            max-width: 500px;
             animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             z-index: 1;
+            margin: auto;
         }
 
         @keyframes slideUp {
@@ -86,7 +89,7 @@
 
         .gif-container img {
             width: 100%;
-            max-width: 100px;
+            max-width: 200px;
             height: auto;
             display: block;
             margin: 0 auto;
@@ -271,9 +274,14 @@
         }
 
         @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+
             .container {
                 padding: 20px;
                 border-radius: 20px;
+                max-width: 100%;
             }
 
             h1 {
@@ -296,6 +304,24 @@
 
             .button-group {
                 gap: 10px;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .container {
+                max-width: 600px;
+                padding: 35px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .container {
+                max-width: 550px;
+                padding: 40px;
+            }
+
+            body {
+                padding: 30px;
             }
         }
 
@@ -325,7 +351,7 @@
         </div>
         
         <div class="gif-container">
-            <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3b3AxNzh6NWN2ZW5wYXI0NDRlaWFjYXU0Nmt4eXU5MjVlbzBhMHMxaCZlcD12MV9zdGlja2Vyc190cmVuZGluZyZjdD1z/10a1Cwco2kUtlS/giphy.gif" alt="Animation" loading="lazy">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzE5ZGE4ZjJkYzBmOGY0ZjM5ZjY4MzI5MzY2ZjE5ZjE5YjY5OWY4YiZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/l0HlNQ03J5JxX6lva/giphy.gif" alt="Animation" loading="lazy">
         </div>
         
         <div class="input-group">
@@ -353,7 +379,7 @@
     </div>
 
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzkTR2WxFtD_2fzh0ShBHVZxPe54fumm01NNEsIxOp-_cEjT6ztOgO8OsJgc92rHuMs/exec';
+        const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
 
         const textInput = document.getElementById('textInput');
         const charCount = document.getElementById('charCount');
@@ -492,4 +518,4 @@
         }, { once: true });
     </script>
 </body>
-</html>     
+</html>
